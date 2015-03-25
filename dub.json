@@ -1,0 +1,7 @@
+{
+	"name": "apache_httpd_format",
+	"description": "Reads and writes Apache httpd's config format",
+	"copyright": "Copyright © 2015, Richard Cattermole",
+	"authors": ["Richard Andrew Cattermole"],
+	"license": "MIT"
+}
