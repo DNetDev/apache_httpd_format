@@ -35,7 +35,7 @@ align(1):
 	Directive*[] childValues;
 }
 
-void apply(ConfigFile values, void delegate(ref Directive) del) {
+void apply(ConfigFile values, void delegate(ref Directive, Directive[] parents) del) {
 	foreach(directive; values) {
 		apply(directive, del);
 	}
@@ -46,6 +46,6 @@ void apply(Directive value, void delegate(ref Directive, Directive[] parents) de
 	
 	Directive[] parents2 = parents ~ value;
 	foreach(child; value.childValues) {
-		apply(chlid, del, parents2);
+		apply(*child, del, parents2);
 	}
 }
