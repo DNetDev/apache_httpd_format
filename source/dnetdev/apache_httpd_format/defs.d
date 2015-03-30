@@ -35,17 +35,19 @@ align(1):
 	Directive*[] childValues;
 }
 
-void apply(ConfigFile values, void delegate(ref Directive, Directive[] parents) del) {
+void apply(ConfigFile values, void delegate(ref Directive, Directive[] parents) del, Directive[] parents = null, bool doChildren = false) {
 	foreach(directive; values) {
-		apply(directive, del);
+		apply(directive, del, parents, doChildren);
 	}
 }
 
-void apply(Directive value, void delegate(ref Directive, Directive[] parents) del, Directive[] parents = null) {
+void apply(Directive value, void delegate(ref Directive, Directive[] parents) del, Directive[] parents = null, bool doChildren = false) {
 	del(value, parents);
 	
-	Directive[] parents2 = parents ~ value;
-	foreach(child; value.childValues) {
-		apply(*child, del, parents2);
+	if (doChildren) {
+        Directive[] parents2 = parents ~ value;
+        foreach(child; value.childValues) {
+            apply(*child, del, parents2);
+        }
 	}
 }
